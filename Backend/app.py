@@ -1,11 +1,21 @@
-from typing import Union
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.encoders import jsonable_encoder
 import schedule
 import threading
 import time
 import subprocess
 
 app = FastAPI()
+
+# Configura o CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["GET", "POST"],
+    allow_headers=["*"],
+)
 
 # Lista para armazenar os agendamentos
 agendamentos = []
@@ -57,4 +67,9 @@ def agendar_aplicacao_endpoint(nome: str, horario: str, frequencia: str):
 
 @app.get("/listar_agendamentos/")
 def listar_agendamentos():
-    return agendamentos
+    return jsonable_encoder(agendamentos)
+
+
+@app.get("/")
+def root():
+    return {"message": "Bem-vindo ao Agendador de Aplicações"}
