@@ -1,2 +1,3 @@
-# Orquestrador_sicredi
-Sistema de orquestração com fastapi, mongo e react 
+# Orquestrador
+
+Sistema de orquestração de automaçao com fastapi, mongo e react 
